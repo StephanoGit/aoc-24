@@ -23,24 +23,12 @@
           packages = [
             (python.withPackages (
               ps: with ps; [
-                jupyter
                 numpy
-                torch
                 tqdm
                 pandas
-                ipython
-                opencv4
-                pycocotools
-                pillow
-                torchvision
-                torchaudio
-                torchsummary
                 matplotlib
-                kaggle
-                mne
               ]
             ))
-            pkgs.wget
             pkgs.git
           ];
 
