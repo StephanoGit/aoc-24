@@ -7,7 +7,12 @@ def corrupt_mul(input):
     
     text = input.read()
     instructions = []
-    
+   
+    # goes through string only once:
+    # Single regex that captures all three patterns
+    pattern = r"mul\((\d+),(\d+)\)|do\(\)|don't\(\)"
+
+
     for m in re.finditer(r"mul\((\d+),(\d+)\)", text):
         instructions.append(('mul', m.start(), int(m.group(1)), int(m.group(2))))
     
