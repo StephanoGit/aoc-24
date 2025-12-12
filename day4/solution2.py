@@ -23,8 +23,8 @@ def xmas_search(input):
     nr = len(mat)
     nc = len(mat[0])
 
-    for r in range(nr - 2):
-        for c in range(nc - 2):
+    for r in range(nr-2):
+        for c in range(nc-2):
             for p in patterns:
                 if check_pattern(p, mat, r, c):
                     res += 1
