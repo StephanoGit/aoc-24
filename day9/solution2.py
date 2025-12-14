@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 def disk_fragmenter(input):
     disk_map = input.readline().strip()
     
@@ -14,28 +12,39 @@ def disk_fragmenter(input):
         else:
             disk.extend(["."] * length)
 
-    # measure the available space (window) when "." found
-    # if not enough go to next available space
-    # if no space found move to the next file and start from beginning again
-    l, r = 0, len(disk) - 1
-    while l < r:
-        while l < r and disk[l] != ".":
-            l += 1
+    for curr_id in range(file_id - 1, -1, -1):
+        curr_file_start = disk.index(curr_id)
 
-        while l < r and disk[r] == ".":
-            r -= 1
+        curr_file_len = 0
+        for i in range(curr_file_start, len(disk)):
+            if disk[i] == curr_id:
+                curr_file_len += 1 
+            else:
+                break
 
-        if l < r:
-            disk[l] = disk[r]
-            disk[r] = "."
-            r -= 1
-            l += 1
+        window_size = 0
+        new_spot = -1
+
+        for i in range(curr_file_start):
+            if disk[i] == ".":
+                window_size += 1 
+                if window_size == curr_file_len:
+                    new_spot = i - curr_file_len + 1 
+                    break 
+            else:
+                window_size = 0
+
+        if new_spot != -1:
+            disk[curr_file_start : curr_file_start + curr_file_len] = ["."] * curr_file_len
+            disk[new_spot : new_spot + curr_file_len] = [curr_id] * curr_file_len
     
     sum = 0
     for i, n in enumerate(disk):
         if n == ".":
-            break
+            continue
         sum += i * int(n)
+
+    print(disk)
 
     return sum 
 

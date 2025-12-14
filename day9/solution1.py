@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 def disk_fragmenter(input):
     disk_map = input.readline().strip()
     
